@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Console output -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!-- toFile (daily rolling) -->
+        <RollingFile name="toFile"
+                     fileName="D:/mobitti/mobittiAi/mobittiAI.log"
+                     filePattern="D:/mobitti/mobittiAi/mobittiAI.log.%d{yyyy-MM-dd}">
+            <PatternLayout pattern="%d %5p [%t] - %c.%M %L - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- Your Application Logs - Show in BOTH console and file -->
+        <Logger name="org.mobitti" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="toFile"/>
+        </Logger>
+
+        <!-- Root logger - set to INFO to reduce noise, show in both -->
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="toFile"/>
+        </Root>
+
+        <!-- Suppress very noisy Tomcat/Catalina logs -->
+        <Logger name="org.apache.catalina" level="WARN" additivity="false"/>
+        <Logger name="org.apache.catalina.core" level="WARN" additivity="false"/>
+        <Logger name="org.apache.catalina.mapper" level="WARN" additivity="false"/>
+        <Logger name="org.apache.catalina.util" level="WARN" additivity="false"/>
+        <Logger name="org.apache.catalina.webresources" level="WARN" additivity="false"/>
+        <Logger name="org.apache.coyote" level="WARN" additivity="false"/>
+        <Logger name="org.apache.tomcat" level="WARN" additivity="false"/>
+
+        <!-- Suppress OpenCensus errors (these are expected) -->
+        <Logger name="io.opencensus" level="ERROR" additivity="false"/>
+
+        <!-- Spring framework - keep important stuff only -->
+        <Logger name="org.springframework" level="INFO" additivity="false"/>
+        <Logger name="org.springframework.boot" level="INFO" additivity="false"/>
+        <Logger name="org.springframework.web" level="INFO" additivity="false"/>
+        <Logger name="org.springframework.web.servlet.HandlerMapping" level="WARN" additivity="false"/>
+        <Logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="WARN" additivity="false"/>
+
+        <!-- Suppress HTTP client noise -->
+        <Logger name="org.apache.commons.httpclient" level="ERROR" additivity="false"/>
+        <Logger name="httpclient.wire" level="ERROR" additivity="false"/>
+        <Logger name="org.apache.http" level="ERROR" additivity="false"/>
+        <Logger name="org.apache.http.wire" level="ERROR" additivity="false"/>
+
+        <!-- Keep important Google/AI service logs -->
+        <Logger name="com.google" level="WARN" additivity="false"/>
+        <Logger name="dev.langchain4j" level="INFO" additivity="false"/>
+
+    </Loggers>
+</Configuration>
