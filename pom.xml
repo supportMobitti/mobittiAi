@@ -30,8 +30,21 @@
                         <exclude>**/*</exclude> <!-- exclude everything -->
                     </excludes>
                 </resource>
+
             </resources>
         <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <excludes>
+                        <exclude>log4j2.xml</exclude>
+                        <exclude>application.properties</exclude>
+                        <exclude>service-account-key.json</exclude>
+                        <exclude>system-prompt.txt</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
