@@ -97,7 +97,7 @@ public class MobittiChatService {
                     + " LAST NAME: " + appUserDto.getLastName() + "\n"
                     + " Role: " + appUserDto.getRoleName() + "\n"
                     + " CLUB ID: " + appUserDto.getClubId() + "\n"
-                    + " DEPARTMENT: " + appUserDto.getDepartment() + "\n"
+                //    + " DEPARTMENT: " + appUserDto.getDepartment() + "\n"
                     + " BIRTHDAY: " + appUserDto.getBirthday() + "\n"
                     + "### 🗓️ Current Date and Time: " + dateTime + "\n\n"
                     + "### 💬 Chat History:\n" + chatHistory  + "\n\n"
@@ -106,6 +106,10 @@ public class MobittiChatService {
             logger.info("PROMPT_BUILT - RequestId: {} SystemPromptLen: {} HistoryLen: {} ContextLen: {} TotalLen: {}",
                     requestId, systemPrompt.getSystemPrompt().length(), chatHistory.length(),
                     context.length(), fullPrompt.length());
+
+            //print the full prompt to debug
+            logger.debug("Full prompt - requestId: {}, prompt: {}", requestId, fullPrompt);
+
 
             // === GEMINI API CALL ===
             long geminiStart = System.currentTimeMillis();

@@ -36,7 +36,7 @@ public class JWTUtils {
         appUserDto.setEmail(claims.getBody().get("email", String.class));
         appUserDto.setFirstName(claims.getBody().get("firstName", String.class));
         appUserDto.setLastName(claims.getBody().get("lastName", String.class));
-        appUserDto.setDepartment(claims.getBody().get("department", String.class));
+        //appUserDto.setDepartment(claims.getBody().get("department", String.class));
         appUserDto.setRoleName(claims.getBody().get("roleName", String.class));
         appUserDto.setSuperClubId(claims.getBody().get("superClubId", Integer.class));
         appUserDto.setUserId(claims.getBody().get("userId", String.class));
