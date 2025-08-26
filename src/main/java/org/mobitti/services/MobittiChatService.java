@@ -99,6 +99,7 @@ public class MobittiChatService {
                     + " CLUB ID: " + appUserDto.getClubId() + "\n"
                 //    + " DEPARTMENT: " + appUserDto.getDepartment() + "\n"
                     + " BIRTHDAY: " + appUserDto.getBirthday() + "\n"
+                    + " GENDER:" +appUserDto.getGender() + "\n"
                     + "### 🗓️ Current Date and Time: " + dateTime + "\n\n"
                     + "### 💬 Chat History:\n" + chatHistory  + "\n\n"
                     + "### 📄 Retrieved Context (from documents):\n" + context + "\n\n"

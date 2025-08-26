@@ -12,6 +12,7 @@ public class AppUserDto {
     private String department;
     private String storageId;
     private String birthday;
+    private String gender;
 
 
     public String getUserId() {
@@ -83,5 +84,13 @@ public class AppUserDto {
     }
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

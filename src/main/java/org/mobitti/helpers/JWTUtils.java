@@ -42,6 +42,8 @@ public class JWTUtils {
         appUserDto.setUserId(claims.getBody().get("userId", String.class));
         appUserDto.setStorageId(claims.getBody().get("storageId", String.class));
         appUserDto.setBirthday(claims.getBody().get("birthday", String.class));
+        appUserDto.setGender(claims.getBody().get("gender", String.class));
+
         return appUserDto;
     }
 
