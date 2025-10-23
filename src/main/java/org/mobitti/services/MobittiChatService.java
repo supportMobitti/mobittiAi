@@ -41,7 +41,7 @@ public class MobittiChatService {
     private GenAiClient genAiClient;
 
     @Autowired
-    private SystemPrompt systemPrompt;
+    private Map<Integer,SystemPrompt> systemPrompt;
 
     private static ObjectMapper mapper = new ObjectMapper();
     public  static SimpleDateFormat dateTimeDbFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -90,7 +90,7 @@ public class MobittiChatService {
                     .thinkingConfig(ThinkingConfig.builder().includeThoughts(true).thinkingBudget(512).build())
                     .build();
             String chatHistory = getChatHistory(appUserDto);
-            String fullPrompt = systemPrompt.getSystemPrompt() + "\n\n"
+            String fullPrompt = systemPrompt.get(appUserDto.getSuperClubId()).getSystemPrompt() + "\n\n"
                     + "### User Profile: \n"
                     + " USER ID: " + appUserDto.getUserId() + "\n"
                     + " FIRST NAME: " + appUserDto.getFirstName() + "\n"
@@ -99,13 +99,13 @@ public class MobittiChatService {
                     + " CLUB ID: " + appUserDto.getClubId() + "\n"
                 //    + " DEPARTMENT: " + appUserDto.getDepartment() + "\n"
                     + " BIRTHDAY: " + appUserDto.getBirthday() + "\n"
-                    + " GENDER:" +appUserDto.getGender() + "\n"
+                    + " GENDER: " +appUserDto.getGender() + "\n"
                     + "### 🗓️ Current Date and Time: " + dateTime + "\n\n"
                     + "### 💬 Chat History:\n" + chatHistory  + "\n\n"
                     + "### 📄 Retrieved Context (from documents):\n" + context + "\n\n"
                     + "### ❓ User Question:\n" + mobittiChatMessage.getMessage();
             logger.info("PROMPT_BUILT - RequestId: {} SystemPromptLen: {} HistoryLen: {} ContextLen: {} TotalLen: {}",
-                    requestId, systemPrompt.getSystemPrompt().length(), chatHistory.length(),
+                    requestId, systemPrompt.get(appUserDto.getSuperClubId()).getSystemPrompt().length(), chatHistory.length(),
                     context.length(), fullPrompt.length());
 
             //print the full prompt to debug
@@ -179,7 +179,7 @@ public class MobittiChatService {
 
         StringBuilder chatHistory = new StringBuilder();
         CircularFifoQueue<MobittiChatMessage> userChatMemory = this.chatMemory.getOrDefault(appUserDto.getClubId() +"_"+appUserDto.getUserId(),
-                new CircularFifoQueue<>(10));
+                new CircularFifoQueue<>(50));
         logger.debug("HISTORY_RETRIEVE - UserKey: {} HistorySize: {}", userKey, userChatMemory.size());
 
         for (MobittiChatMessage message : userChatMemory) {
